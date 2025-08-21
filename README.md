@@ -1,5 +1,32 @@
 # Job Application Tracker
 
+A full-stack MERN web application to help manage and visualize your job search journey.  
+Built with **React**, **Node.js**, **MongoDB**, and **Tailwind CSS**.
+
+## Overview
+
+This project helps job seekers organize, track, and analyze their job applications in one place.  
+You can register, log in, add job applications, upload resumes, update statuses, and view your progress with interactive dashboards and timelines.
+
+## Tech Stack
+
+- **Frontend:** React.js, Tailwind CSS, Axios, React Router
+- **Backend:** Node.js, Express.js, Mongoose, JWT, Multer, bcryptjs
+- **Database:** MongoDB
+
+## Key Features
+
+- **JWT-based authentication**
+- **Upload and track resumes** (PDF, DOC, DOCX)
+- **Application status management:** Applied → Interview → Offer/Rejected
+- **Interactive dashboard** with timeline, filters, and statistics
+- **Profile management** and password change
+- **Responsive design** for desktop and mobile
+
+---
+
+# Original Documentation
+
 A full-stack web application to help users track job applications and view status changes over time.
 
 ## Features
