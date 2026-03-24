@@ -224,7 +224,7 @@ router.get("/resume/:filename", auth, async (req, res) => {
       return res.status(404).json({ message: "Resume not found" });
     }
 
-    const filePath = path.join(__dirname, "../uploads", filename);
+    const filePath = path.join(__dirname, "../../uploads", filename);
 
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ message: "Resume file not found" });
@@ -253,7 +253,7 @@ router.delete("/:id", auth, async (req, res) => {
     if (job.resumeFile && job.resumeFile.filename) {
       const filePath = path.join(
         __dirname,
-        "../uploads",
+        "../../uploads",
         job.resumeFile.filename
       );
       if (fs.existsSync(filePath)) {

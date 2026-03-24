@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 const { MongoMemoryServer } = require("mongodb-memory-server");
-require("dotenv").config();
+require("dotenv").config({ path: path.join(__dirname, '../.env') });
 
 const authRoutes = require("./routes/auth");
 const jobRoutes = require("./routes/jobs");
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve uploaded files
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "../../uploads")));
 
 // Routes
 app.use("/api/auth", authRoutes);
@@ -25,9 +25,9 @@ app.use("/api/jobs", jobRoutes);
 
 // Serve React build in production
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
+  app.use(express.static(path.join(__dirname, "../../client/build")));
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+    res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
   });
 }
 
@@ -39,15 +39,27 @@ app.use((err, req, res, next) => {
 
 // Database connection with fallback to in-memory
 async function connectDatabase() {
+  const mongoUri = process.env.MONGODB_URI;
+  const isProduction = process.env.NODE_ENV === "production";
+
   try {
-    // Try to connect to local MongoDB first
-    await mongoose.connect(process.env.MONGODB_URI, {
+    if (!mongoUri) {
+      throw new Error("MONGODB_URI is not set");
+    }
+
+    await mongoose.connect(mongoUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       serverSelectionTimeoutMS: 3000, // Timeout after 3s instead of 30s
     });
     console.log("Connected to MongoDB");
   } catch (error) {
+    if (isProduction) {
+      throw new Error(
+        `Failed to connect to MongoDB in production: ${error.message}`
+      );
+    }
+
     console.log("Local MongoDB not available, starting in-memory database...");
 
     // Start in-memory MongoDB server

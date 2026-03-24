@@ -115,7 +115,7 @@ router.post(
 // Configure multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, "../uploads");
+    const uploadDir = path.join(__dirname, "../../uploads");
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
@@ -206,7 +206,7 @@ router.put(
         if (req.user.resume) {
           const oldResumePath = path.join(
             __dirname,
-            "../uploads",
+            "../../uploads",
             req.user.resume
           );
           if (fs.existsSync(oldResumePath)) {
@@ -252,7 +252,7 @@ router.get(
   async (req, res) => {
     try {
       const filename = req.params.filename;
-      const filePath = path.join(__dirname, "../uploads", filename);
+      const filePath = path.join(__dirname, "../../uploads", filename);
 
       if (!fs.existsSync(filePath)) {
         return res.status(404).json({ message: "Resume not found" });
@@ -273,7 +273,7 @@ router.delete(
   async (req, res) => {
     try {
       const filename = req.params.filename;
-      const filePath = path.join(__dirname, "../uploads", filename);
+      const filePath = path.join(__dirname, "../../uploads", filename);
 
       if (!fs.existsSync(filePath)) {
         return res.status(404).json({ message: "Resume not found" });
