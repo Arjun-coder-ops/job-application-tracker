@@ -87,6 +87,3 @@ This project follows a professional directory setup separating the view layer fr
    npm run dev
    ```
    The backend server will start on `http://localhost:5000`, and the React client will run concurrently on `http://localhost:3000`.
-
-## Contribution
-Built by human hands. Feel free to pull, fork, or submit issues if you'd like to improve the architecture or design further!
